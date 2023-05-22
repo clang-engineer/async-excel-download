@@ -9,6 +9,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class ExcelConverter {
+  List<String> headers;
+
+  public ExcelConverter(List<String> headers) {
+    this.headers = headers;
+  }
+
   public Workbook convertToWorkbook(List<Map<String, String>> dataList) {
     Workbook workbook = new SXSSFWorkbook();
 
@@ -18,9 +24,9 @@ public class ExcelConverter {
     // 헤더 행 생성
     Row headerRow = sheet.createRow(rowIndex++);
     int cellIndex = 0;
-    for (String key : dataList.get(0).keySet()) {
+    for (String header : headers) {
       Cell headerCell = headerRow.createCell(cellIndex++);
-      headerCell.setCellValue(key);
+      headerCell.setCellValue(header);
     }
 
     // 데이터 행 생성

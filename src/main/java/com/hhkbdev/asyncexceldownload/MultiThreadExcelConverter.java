@@ -17,7 +17,11 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class MultiThreadExcelConverter {
   public Workbook getCombinedWorkbook(List<Map<String, String>> dataList) {
-    ExcelConverter converter = new ExcelConverter();
+    List<String> headers = new ArrayList<>();
+    for (String key : dataList.get(0).keySet()) {
+      headers.add(key);
+    }
+    ExcelConverter converter = new ExcelConverter(headers);
 
     ExecutorService executorService = Executors.newFixedThreadPool(
         Runtime.getRuntime().availableProcessors());

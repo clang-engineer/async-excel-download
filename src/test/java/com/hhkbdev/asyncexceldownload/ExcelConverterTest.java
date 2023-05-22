@@ -17,7 +17,12 @@ class ExcelConverterTest {
 
   @Test
   void testConvertToWorkbook() throws Exception {
-    ExcelConverter converter = new ExcelConverter();
+    List<String> headers = new ArrayList<>();
+    headers.add("Name");
+    headers.add("Age");
+    headers.add("Country");
+
+    ExcelConverter converter = new ExcelConverter(headers);
 
     List<Map<String, String>> dataList = new ArrayList<>();
     Map<String, String> map1 = new LinkedHashMap<>();
