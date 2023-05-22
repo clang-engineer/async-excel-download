@@ -3,8 +3,8 @@ package com.hhkbdev.asyncexceldownload;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.hhkbdev.asyncexceldownload.domain.Field;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.poi.ss.usermodel.Cell;
@@ -17,31 +17,20 @@ class ExcelConverterTest {
 
   @Test
   void testConvertToWorkbook() throws Exception {
-    List<String> headers = new ArrayList<>();
-    headers.add("Name");
-    headers.add("Age");
-    headers.add("Country");
+    List<Field> fields = new ArrayList<>();
+    Field filed1 = new Field(1L, "Name", "String", "이름");
+    Field filed2 = new Field(2L, "Age", "Integer", "나이");
+    Field filed3 = new Field(3L, "Country", "String", "국가");
+    fields.add(filed1);
+    fields.add(filed2);
+    fields.add(filed3);
 
-    ExcelConverter converter = new ExcelConverter(headers);
+    ExcelConverter converter = new ExcelConverter(fields);
 
     List<Map<String, String>> dataList = new ArrayList<>();
-    Map<String, String> map1 = new LinkedHashMap<>();
-    map1.put("Name", "John");
-    map1.put("Age", "30");
-    map1.put("Country", "USA");
-    dataList.add(map1);
-
-    Map<String, String> map2 = new LinkedHashMap<>();
-    map2.put("Name", "Emma");
-    map2.put("Age", "28");
-    map2.put("Country", "Canada");
-    dataList.add(map2);
-
-    Map<String, String> map3 = new LinkedHashMap<>();
-    map3.put("Name", "Peter");
-    map3.put("Age", "35");
-    map3.put("Country", "Australia");
-    dataList.add(map3);
+    dataList.add(Map.of("Name", "John", "Age", "20", "Country", "USA"));
+    dataList.add(Map.of("Name", "Jane", "Age", "25", "Country", "Canada"));
+    dataList.add(Map.of("Name", "Peter", "Age", "35", "Country", "Australia"));
 
     Workbook workbook = converter.convertToWorkbook(dataList);
 
@@ -56,15 +45,15 @@ class ExcelConverterTest {
 
     Cell headerCell1 = headerRow.getCell(0);
     assertNotNull(headerCell1);
-    assertEquals("Name", headerCell1.getStringCellValue());
+    assertEquals(filed1.getFieldComment(), headerCell1.getStringCellValue());
 
     Cell headerCell2 = headerRow.getCell(1);
     assertNotNull(headerCell2);
-    assertEquals("Age", headerCell2.getStringCellValue());
+    assertEquals(filed2.getFieldComment(), headerCell2.getStringCellValue());
 
     Cell headerCell3 = headerRow.getCell(2);
     assertNotNull(headerCell3);
-    assertEquals("Country", headerCell3.getStringCellValue());
+    assertEquals(filed3.getFieldComment(), headerCell3.getStringCellValue());
 
     Row dataRow1 = sheet.getRow(1);
     assertNotNull(dataRow1);
@@ -76,15 +65,12 @@ class ExcelConverterTest {
 
     Cell dataCell2 = dataRow1.getCell(1);
     assertNotNull(dataCell2);
-    assertEquals("30", dataCell2.getStringCellValue());
+    assertEquals("20", dataCell2.getStringCellValue());
 
     Cell dataCell3 = dataRow1.getCell(2);
     assertNotNull(dataCell3);
     assertEquals("USA", dataCell3.getStringCellValue());
 
-    // 추가적인 데이터 행들을 검증할 수 있습니다.
-
-    // workbook.close() 메소드를 호출하여 리소스를 정리해주어야 합니다.
     workbook.close();
   }
 }

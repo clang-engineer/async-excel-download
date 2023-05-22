@@ -1,5 +1,6 @@
 package com.hhkbdev.asyncexceldownload;
 
+import com.hhkbdev.asyncexceldownload.domain.Field;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class MultiThreadExcelConverter {
+
   public Workbook getCombinedWorkbook(List<Map<String, String>> dataList) {
-    List<String> headers = new ArrayList<>();
+    List<Field> fields = new ArrayList<>();
     for (String key : dataList.get(0).keySet()) {
-      headers.add(key);
+      fields.add(new Field(0L, key, "String", key));
     }
-    ExcelConverter converter = new ExcelConverter(headers);
+    ExcelConverter converter = new ExcelConverter(fields);
 
     ExecutorService executorService = Executors.newFixedThreadPool(
         Runtime.getRuntime().availableProcessors());
