@@ -36,6 +36,10 @@ public class ExcelConverter {
       cellIndex = 0;
       for (Field field : fields) {
         Cell dataCell = dataRow.createCell(cellIndex++);
+        if (dataMap.get(field.getFieldName()) == null) {
+          dataCell.setCellValue("");
+          continue;
+        }
         dataCell.setCellValue(dataMap.get(field.getFieldName()));
       }
     }

@@ -1,75 +1,78 @@
 package com.hhkbdev.asyncexceldownload;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.hhkbdev.asyncexceldownload.domain.Field;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ExcelConverterTest {
+  private Field field1 = new Field(1L, "Name", "String", "이름");
+  private Field field2 = new Field(2L, "Age", "Integer", "나이");
+  private Field field3 = new Field(3L, "Country", "String", "국가");
+
+  private Map data1 = Map.of("Name", "John", "Age", "20", "Country", "USA");
+  private Map data2 = Map.of("Name", "Jane", "Age", "25", "Country", "Canada");
+  private Map data3 = Map.of("Name", "Peter", "Age", "35", "Country", "Australia");
+
+  private ExcelConverter converter = new ExcelConverter(Arrays.asList(field1, field2, field3));
+
+  @BeforeEach
+  void setUp() {
+  }
 
   @Test
   void testConvertToWorkbook() throws Exception {
-    List<Field> fields = new ArrayList<>();
-    Field filed1 = new Field(1L, "Name", "String", "이름");
-    Field filed2 = new Field(2L, "Age", "Integer", "나이");
-    Field filed3 = new Field(3L, "Country", "String", "국가");
-    fields.add(filed1);
-    fields.add(filed2);
-    fields.add(filed3);
-
-    ExcelConverter converter = new ExcelConverter(fields);
-
-    List<Map<String, String>> dataList = new ArrayList<>();
-    dataList.add(Map.of("Name", "John", "Age", "20", "Country", "USA"));
-    dataList.add(Map.of("Name", "Jane", "Age", "25", "Country", "Canada"));
-    dataList.add(Map.of("Name", "Peter", "Age", "35", "Country", "Australia"));
+    List dataList = Arrays.asList(data1, data2, data3);
 
     Workbook workbook = converter.convertToWorkbook(dataList);
 
-    assertNotNull(workbook);
+    assertThat(workbook).isNotNull();
 
     Sheet sheet = workbook.getSheetAt(0);
-    assertNotNull(sheet);
+    assertThat(sheet).isNotNull();
 
     Row headerRow = sheet.getRow(0);
-    assertNotNull(headerRow);
-    assertEquals(3, headerRow.getLastCellNum());
+    assertThat(headerRow).isNotNull();
+    assertThat(Integer.valueOf(headerRow.getLastCellNum())).isEqualTo(3);
 
     Cell headerCell1 = headerRow.getCell(0);
-    assertNotNull(headerCell1);
-    assertEquals(filed1.getFieldComment(), headerCell1.getStringCellValue());
+    assertThat(headerCell1).isNotNull();
+    assertThat(headerCell1.getStringCellValue()).isEqualTo(field1.getFieldComment());
 
     Cell headerCell2 = headerRow.getCell(1);
-    assertNotNull(headerCell2);
-    assertEquals(filed2.getFieldComment(), headerCell2.getStringCellValue());
+    assertThat(headerCell2).isNotNull();
+    assertThat(headerCell2.getStringCellValue()).isEqualTo(field2.getFieldComment());
 
     Cell headerCell3 = headerRow.getCell(2);
-    assertNotNull(headerCell3);
-    assertEquals(filed3.getFieldComment(), headerCell3.getStringCellValue());
+    assertThat(headerCell3).isNotNull();
+    assertThat(headerCell3.getStringCellValue()).isEqualTo(field3.getFieldComment());
 
     Row dataRow1 = sheet.getRow(1);
-    assertNotNull(dataRow1);
-    assertEquals(3, dataRow1.getLastCellNum());
+    assertThat(dataRow1).isNotNull();
+    assertThat(Integer.valueOf(dataRow1.getLastCellNum())).isEqualTo(3);
 
     Cell dataCell1 = dataRow1.getCell(0);
-    assertNotNull(dataCell1);
-    assertEquals("John", dataCell1.getStringCellValue());
+    assertThat(dataCell1).isNotNull();
+    assertThat(dataCell1.getStringCellValue()).isEqualTo("John");
 
     Cell dataCell2 = dataRow1.getCell(1);
-    assertNotNull(dataCell2);
-    assertEquals("20", dataCell2.getStringCellValue());
+    assertThat(dataCell2).isNotNull();
+    assertThat(dataCell2.getStringCellValue()).isEqualTo("20");
 
     Cell dataCell3 = dataRow1.getCell(2);
-    assertNotNull(dataCell3);
-    assertEquals("USA", dataCell3.getStringCellValue());
+    assertThat(dataCell3).isNotNull();
+    assertThat(dataCell3.getStringCellValue()).isEqualTo("USA");
 
     workbook.close();
   }
