@@ -8,15 +8,14 @@ public class Field {
   String fieldName;
   String fieldType;
   String fieldComment;
+  FieldStyle fieldStyle;
 
-  HorizontalAlignment horizontalAlignment;
-
-  public Field(Long id, String fieldName, String fieldType, String fieldComment, HorizontalAlignment alignment) {
+  public Field(Long id, String fieldName, String fieldType, String fieldComment, FieldStyle fieldStyle) {
     this.id = id;
     this.fieldName = fieldName;
     this.fieldType = fieldType;
     this.fieldComment = fieldComment;
-    this.horizontalAlignment = alignment;
+    this.fieldStyle = fieldStyle;
   }
 
   public Long getId() {
@@ -35,7 +34,19 @@ public class Field {
     return fieldComment;
   }
 
-  public HorizontalAlignment getHorizontalAlignment() {
-    return horizontalAlignment;
+  public FieldStyle getFieldStyle() {
+    return fieldStyle;
+  }
+
+  public static class FieldStyle {
+    HorizontalAlignment horizontalAlignment;
+
+    public HorizontalAlignment getHorizontalAlignment() {
+      return horizontalAlignment;
+    }
+
+    public FieldStyle(HorizontalAlignment horizontalAlignment) {
+      this.horizontalAlignment = horizontalAlignment;
+    }
   }
 }

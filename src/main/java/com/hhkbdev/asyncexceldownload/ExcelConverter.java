@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -46,7 +45,7 @@ public class ExcelConverter {
 
         CellStyle cellStyle = workbook.createCellStyle();
         dataCell.setCellStyle(cellStyle);
-        cellStyle.setAlignment(field.getHorizontalAlignment());
+        cellStyle.setAlignment(field.getFieldStyle().getHorizontalAlignment());
       }
     }
 

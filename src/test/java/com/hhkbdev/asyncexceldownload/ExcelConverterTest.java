@@ -1,11 +1,9 @@
 package com.hhkbdev.asyncexceldownload;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.hhkbdev.asyncexceldownload.domain.Field;
+import com.hhkbdev.asyncexceldownload.domain.Field.FieldStyle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ExcelConverterTest {
-  private Field field1 = new Field(1L, "Name", "String", "이름", HorizontalAlignment.CENTER);
-  private Field field2 = new Field(2L, "Age", "Integer", "나이", HorizontalAlignment.RIGHT);
-  private Field field3 = new Field(3L, "Country", "String", "국가", HorizontalAlignment.LEFT);
+  private Field field1 = new Field(1L, "Name", "String", "이름", new FieldStyle(HorizontalAlignment.CENTER));
+  private Field field2 = new Field(2L, "Age", "Integer", "나이", new FieldStyle(HorizontalAlignment.RIGHT));
+  private Field field3 = new Field(3L, "Country", "String", "국가", new FieldStyle(HorizontalAlignment.LEFT));
 
   private Map data1 = Map.of("Name", "John", "Age", "20", "Country", "USA");
   private Map data2 = Map.of("Name", "Jane", "Age", "25", "Country", "Canada");
