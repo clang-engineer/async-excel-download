@@ -18,9 +18,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ExcelConverterTest {
-  private Field field1 = new Field(1L, "Name", "String", "이름");
-  private Field field2 = new Field(2L, "Age", "Integer", "나이");
-  private Field field3 = new Field(3L, "Country", "String", "국가");
+  private Field field1 = new Field(1L, "Name", "String", "이름", HorizontalAlignment.CENTER);
+  private Field field2 = new Field(2L, "Age", "Integer", "나이", HorizontalAlignment.RIGHT);
+  private Field field3 = new Field(3L, "Country", "String", "국가", HorizontalAlignment.LEFT);
 
   private Map data1 = Map.of("Name", "John", "Age", "20", "Country", "USA");
   private Map data2 = Map.of("Name", "Jane", "Age", "25", "Country", "Canada");
@@ -71,10 +71,12 @@ class ExcelConverterTest {
     Cell dataCell2 = dataRow1.getCell(1);
     assertThat(dataCell2).isNotNull();
     assertThat(dataCell2.getStringCellValue()).isEqualTo("20");
+    assertThat(dataCell2.getCellStyle().getAlignment()).isEqualTo(HorizontalAlignment.RIGHT);
 
     Cell dataCell3 = dataRow1.getCell(2);
     assertThat(dataCell3).isNotNull();
     assertThat(dataCell3.getStringCellValue()).isEqualTo("USA");
+    assertThat(dataCell3.getCellStyle().getAlignment()).isEqualTo(HorizontalAlignment.LEFT);
 
     workbook.close();
   }

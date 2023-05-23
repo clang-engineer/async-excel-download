@@ -21,7 +21,7 @@ public class MultiThreadExcelConverter {
   public Workbook getCombinedWorkbook(List<Map<String, String>> dataList) {
     List<Field> fields = new ArrayList<>();
     for (String key : dataList.get(0).keySet()) {
-      fields.add(new Field(0L, key, "String", key));
+      fields.add(new Field(0L, key, "String", key, null));
     }
     ExcelConverter converter = new ExcelConverter(fields);
 

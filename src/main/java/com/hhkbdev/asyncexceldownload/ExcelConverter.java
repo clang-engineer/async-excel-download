@@ -42,10 +42,11 @@ public class ExcelConverter {
           dataCell.setCellValue("");
           continue;
         }
+        dataCell.setCellValue(dataMap.get(field.getFieldName()));
+
         CellStyle cellStyle = workbook.createCellStyle();
         dataCell.setCellStyle(cellStyle);
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        dataCell.setCellValue(dataMap.get(field.getFieldName()));
+        cellStyle.setAlignment(field.getHorizontalAlignment());
       }
     }
 

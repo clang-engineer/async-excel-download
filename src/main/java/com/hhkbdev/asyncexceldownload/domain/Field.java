@@ -1,5 +1,7 @@
 package com.hhkbdev.asyncexceldownload.domain;
 
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+
 public class Field {
 
   Long id;
@@ -7,11 +9,14 @@ public class Field {
   String fieldType;
   String fieldComment;
 
-  public Field(Long id, String fieldName, String fieldType, String fieldComment) {
+  HorizontalAlignment horizontalAlignment;
+
+  public Field(Long id, String fieldName, String fieldType, String fieldComment, HorizontalAlignment alignment) {
     this.id = id;
     this.fieldName = fieldName;
     this.fieldType = fieldType;
     this.fieldComment = fieldComment;
+    this.horizontalAlignment = alignment;
   }
 
   public Long getId() {
@@ -28,5 +33,9 @@ public class Field {
 
   public String getFieldComment() {
     return fieldComment;
+  }
+
+  public HorizontalAlignment getHorizontalAlignment() {
+    return horizontalAlignment;
   }
 }
