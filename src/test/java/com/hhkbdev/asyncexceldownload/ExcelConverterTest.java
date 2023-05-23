@@ -3,8 +3,8 @@ package com.hhkbdev.asyncexceldownload;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.hhkbdev.asyncexceldownload.domain.Field;
-import com.hhkbdev.asyncexceldownload.domain.Field.FieldSchema;
-import com.hhkbdev.asyncexceldownload.domain.Field.FieldStyle;
+import com.hhkbdev.asyncexceldownload.domain.Field.Schema;
+import com.hhkbdev.asyncexceldownload.domain.Field.Style;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +19,14 @@ import org.junit.jupiter.api.Test;
 class ExcelConverterTest {
 
   private Field field1 = new Field(
-      new FieldSchema(1L, "Name", "String", "이름"),
-      new FieldStyle(HorizontalAlignment.CENTER));
+      new Schema(1L, "Name", "String", "이름"),
+      new Style(HorizontalAlignment.CENTER));
   private Field field2 = new Field(
-      new FieldSchema(2L, "Age", "Integer", "나이"),
-      new FieldStyle(HorizontalAlignment.RIGHT));
+      new Schema(2L, "Age", "Integer", "나이"),
+      new Style(HorizontalAlignment.RIGHT));
   private Field field3 = new Field(
-      new FieldSchema(3L, "Country", "String", "국가"),
-      new FieldStyle(HorizontalAlignment.LEFT));
+      new Schema(3L, "Country", "String", "국가"),
+      new Style(HorizontalAlignment.LEFT));
 
   private Map data1 = Map.of("Name", "John", "Age", "20", "Country", "USA");
   private Map data2 = Map.of("Name", "Jane", "Age", "25", "Country", "Canada");
@@ -55,15 +55,15 @@ class ExcelConverterTest {
 
     Cell headerCell1 = headerRow.getCell(0);
     assertThat(headerCell1).isNotNull();
-    assertThat(headerCell1.getStringCellValue()).isEqualTo(field1.getFieldSchema().getFieldComment());
+    assertThat(headerCell1.getStringCellValue()).isEqualTo(field1.getSchema().getComment());
 
     Cell headerCell2 = headerRow.getCell(1);
     assertThat(headerCell2).isNotNull();
-    assertThat(headerCell2.getStringCellValue()).isEqualTo(field2.getFieldSchema().getFieldComment());
+    assertThat(headerCell2.getStringCellValue()).isEqualTo(field2.getSchema().getComment());
 
     Cell headerCell3 = headerRow.getCell(2);
     assertThat(headerCell3).isNotNull();
-    assertThat(headerCell3.getStringCellValue()).isEqualTo(field3.getFieldSchema().getFieldComment());
+    assertThat(headerCell3.getStringCellValue()).isEqualTo(field3.getSchema().getComment());
 
     Row dataRow1 = sheet.getRow(1);
     assertThat(dataRow1).isNotNull();

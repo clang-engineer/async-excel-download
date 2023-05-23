@@ -28,7 +28,7 @@ public class ExcelConverter {
     int cellIndex = 0;
     for (Field field : fields) {
       Cell headerCell = headerRow.createCell(cellIndex++);
-      headerCell.setCellValue(field.getFieldSchema().getFieldComment());
+      headerCell.setCellValue(field.getSchema().getComment());
     }
 
     // 데이터 행 생성
@@ -37,15 +37,15 @@ public class ExcelConverter {
       cellIndex = 0;
       for (Field field : fields) {
         Cell dataCell = dataRow.createCell(cellIndex++);
-        if (dataMap.get(field.getFieldSchema().getFieldName()) == null) {
+        if (dataMap.get(field.getSchema().getName()) == null) {
           dataCell.setCellValue("");
           continue;
         }
-        dataCell.setCellValue(dataMap.get(field.getFieldSchema().getFieldName()));
+        dataCell.setCellValue(dataMap.get(field.getSchema().getName()));
 
         CellStyle cellStyle = workbook.createCellStyle();
         dataCell.setCellStyle(cellStyle);
-        cellStyle.setAlignment(field.getFieldStyle().getHorizontalAlignment());
+        cellStyle.setAlignment(field.getStyle().getHorizontalAlignment());
       }
     }
 

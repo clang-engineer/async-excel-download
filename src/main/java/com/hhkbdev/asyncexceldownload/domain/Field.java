@@ -4,61 +4,61 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
 public class Field {
 
-  FieldSchema fieldSchema;
+  Schema schema;
 
-  FieldStyle fieldStyle;
+  Style style;
 
-  public Field(FieldSchema fieldSchema, FieldStyle fieldStyle) {
-    this.fieldSchema = fieldSchema;
-    this.fieldStyle = fieldStyle;
+  public Field(Schema schema, Style style) {
+    this.schema = schema;
+    this.style = style;
   }
 
-  public FieldSchema getFieldSchema() {
-    return fieldSchema;
+  public Schema getSchema() {
+    return schema;
   }
 
-  public FieldStyle getFieldStyle() {
-    return fieldStyle;
+  public Style getStyle() {
+    return style;
   }
 
-  public static class FieldSchema {
+  public static class Schema {
     Long id;
-    String fieldName;
-    String fieldType;
-    String fieldComment;
+    String name;
+    String type;
+    String comment;
 
-    public FieldSchema(Long id, String fieldName, String fieldType, String fieldComment) {
+    public Schema(Long id, String name, String type, String comment) {
       this.id = id;
-      this.fieldName = fieldName;
-      this.fieldType = fieldType;
-      this.fieldComment = fieldComment;
+      this.name = name;
+      this.type = type;
+      this.comment = comment;
     }
 
     public Long getId() {
       return id;
     }
 
-    public String getFieldName() {
-      return fieldName;
+    public String getName() {
+      return name;
     }
 
-    public String getFieldType() {
-      return fieldType;
+    public String getType() {
+      return type;
     }
 
-    public String getFieldComment() {
-      return fieldComment;
+    public String getComment() {
+      return comment;
     }
   }
 
-  public static class FieldStyle {
+  public static class Style {
     HorizontalAlignment horizontalAlignment;
 
     public HorizontalAlignment getHorizontalAlignment() {
       return horizontalAlignment;
     }
 
-    public FieldStyle(HorizontalAlignment horizontalAlignment) {
+    public Style(HorizontalAlignment horizontalAlignment) {
       this.horizontalAlignment = horizontalAlignment;
     }
   }
