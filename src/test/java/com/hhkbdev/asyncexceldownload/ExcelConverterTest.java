@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -65,6 +66,7 @@ class ExcelConverterTest {
     Cell dataCell1 = dataRow1.getCell(0);
     assertThat(dataCell1).isNotNull();
     assertThat(dataCell1.getStringCellValue()).isEqualTo("John");
+    assertThat(dataCell1.getCellStyle().getAlignment()).isEqualTo(HorizontalAlignment.CENTER);
 
     Cell dataCell2 = dataRow1.getCell(1);
     assertThat(dataCell2).isNotNull();
