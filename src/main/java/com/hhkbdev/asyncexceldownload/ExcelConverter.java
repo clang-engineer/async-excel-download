@@ -28,7 +28,7 @@ public class ExcelConverter {
     int cellIndex = 0;
     for (Field field : fields) {
       Cell headerCell = headerRow.createCell(cellIndex++);
-      headerCell.setCellValue(field.getFieldComment());
+      headerCell.setCellValue(field.getFieldSchema().getFieldComment());
     }
 
     // 데이터 행 생성
@@ -37,11 +37,11 @@ public class ExcelConverter {
       cellIndex = 0;
       for (Field field : fields) {
         Cell dataCell = dataRow.createCell(cellIndex++);
-        if (dataMap.get(field.getFieldName()) == null) {
+        if (dataMap.get(field.getFieldSchema().getFieldName()) == null) {
           dataCell.setCellValue("");
           continue;
         }
-        dataCell.setCellValue(dataMap.get(field.getFieldName()));
+        dataCell.setCellValue(dataMap.get(field.getFieldSchema().getFieldName()));
 
         CellStyle cellStyle = workbook.createCellStyle();
         dataCell.setCellStyle(cellStyle);

@@ -1,6 +1,8 @@
 package com.hhkbdev.asyncexceldownload;
 
 import com.hhkbdev.asyncexceldownload.domain.Field;
+import com.hhkbdev.asyncexceldownload.domain.Field.FieldSchema;
+import com.hhkbdev.asyncexceldownload.domain.Field.FieldStyle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,7 +24,8 @@ public class MultiThreadExcelConverter {
   public Workbook getCombinedWorkbook(List<Map<String, String>> dataList) {
     List<Field> fields = new ArrayList<>();
     for (String key : dataList.get(0).keySet()) {
-      fields.add(new Field(0L, key, "String", key, null));
+      fields.add(new Field(new FieldSchema(0L, key, "String", key)
+          , new FieldStyle(HorizontalAlignment.CENTER)));
     }
     ExcelConverter converter = new ExcelConverter(fields);
 
