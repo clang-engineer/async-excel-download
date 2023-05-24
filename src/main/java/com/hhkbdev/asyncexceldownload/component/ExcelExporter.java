@@ -31,7 +31,7 @@ public class ExcelExporter {
 
   public void uploadToServer(List<HashMap> dataList) throws IOException {
     Workbook workbook = getInitWorkbook();
-    Sheet sheet = getInitSheet(workbook);
+    Sheet sheet = getStyledSheet(getInitSheet(workbook));
     int rowIndex = getInitRowIndex(sheet);
 
     if (rowIndex == 0) {
@@ -43,7 +43,7 @@ public class ExcelExporter {
 
     for (HashMap dataMap : dataList) {
       if (rowIndex > MAX_ROW_COUNT) {
-        sheet = workbook.createSheet("Data" + (workbook.getNumberOfSheets() + 1));
+        sheet = getStyledSheet(getNewSheet(workbook));
         createHeaderOnSheet(sheet);
         rowIndex = 1;
       }
@@ -76,11 +76,25 @@ public class ExcelExporter {
 
     Sheet sheet;
     if (sheetNum == 0) {
-      sheet = workbook.createSheet("Data" + (sheetNum + 1));
+      sheet = getNewSheet(workbook);
     } else {
       sheet = workbook.getSheetAt(sheetNum - 1);
     }
 
+    for (int i = 0; i < fields.size(); i++) {
+      if (fields.get(i).getStyle().getWidth() != null) {
+        sheet.setColumnWidth(i, fields.get(i).getStyle().getWidth());
+      }
+    }
+
+    return sheet;
+  }
+
+  private Sheet getNewSheet(Workbook workbook) {
+    return workbook.createSheet("Data" + (workbook.getNumberOfSheets() + 1));
+  }
+
+  private Sheet getStyledSheet(Sheet sheet) {
     for (int i = 0; i < fields.size(); i++) {
       if (fields.get(i).getStyle().getWidth() != null) {
         sheet.setColumnWidth(i, fields.get(i).getStyle().getWidth());
