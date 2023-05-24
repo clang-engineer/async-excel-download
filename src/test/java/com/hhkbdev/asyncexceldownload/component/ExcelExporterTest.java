@@ -65,14 +65,17 @@ class ExcelExporterTest {
 
     FileInputStream fis = new FileInputStream(file);
     Workbook workbook = new XSSFWorkbook(fis);
-    Sheet sheet = workbook.getSheetAt(0);
-    Row headerRow = sheet.getRow(0);
+    Sheet firstSheet = workbook.getSheetAt(0);
+    Sheet secondSheet = workbook.getSheetAt(1);
+    Row headerRow = firstSheet.getRow(0);
 
     assertThat(headerRow.getCell(0).getStringCellValue()).isEqualTo("ID");
     assertThat(headerRow.getCell(1).getStringCellValue()).isEqualTo("Name");
     assertThat(headerRow.getCell(2).getStringCellValue()).isEqualTo("Age");
 
-    assertThat(sheet.getLastRowNum()).isEqualTo(50000);
+    assertThat(workbook.getNumberOfSheets()).isEqualTo(2);
+    assertThat(firstSheet.getLastRowNum()).isEqualTo(50000);
+    assertThat(secondSheet.getLastRowNum()).isEqualTo(4321);
 
     workbook.close();
     fis.close();
@@ -80,7 +83,7 @@ class ExcelExporterTest {
 
   private List<HashMap> generateLargeData() {
     List<HashMap> dataList = new ArrayList<>();
-    for (int i = 1; i <= 100000; i++) {
+    for (int i = 1; i <= 54321; i++) {
       HashMap data = new HashMap();
       data.put("id", i);
       data.put("name", "name" + i);

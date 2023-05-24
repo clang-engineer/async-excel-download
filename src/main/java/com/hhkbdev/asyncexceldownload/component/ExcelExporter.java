@@ -42,6 +42,12 @@ public class ExcelExporter {
     Map<String, CellStyle> styleMap = getCellStyleMap(workbook);
 
     for (HashMap dataMap : dataList) {
+      if (rowIndex > MAX_ROW_COUNT) {
+        sheet = workbook.createSheet("Data" + (workbook.getNumberOfSheets() + 1));
+        createHeaderOnSheet(sheet);
+        rowIndex = 1;
+      }
+
       Row dataRow = sheet.createRow(rowIndex++);
       createCellOnRow(dataRow, dataMap, styleMap);
     }
@@ -69,7 +75,7 @@ public class ExcelExporter {
     int sheetNum = workbook.getNumberOfSheets();
 
     Sheet sheet;
-    if (sheetNum == 0 || workbook.getSheetAt(sheetNum - 1).getLastRowNum() > MAX_ROW_COUNT) {
+    if (sheetNum == 0) {
       sheet = workbook.createSheet("Data" + (sheetNum + 1));
     } else {
       sheet = workbook.getSheetAt(sheetNum - 1);
