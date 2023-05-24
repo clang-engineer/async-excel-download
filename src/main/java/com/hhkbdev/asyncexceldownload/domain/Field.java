@@ -22,19 +22,19 @@ public class Field {
   }
 
   public static class Schema {
-    Long id;
+    String id;
     String name;
     String type;
     String comment;
 
-    public Schema(Long id, String name, String type, String comment) {
+    public Schema(String id, String name, String type, String comment) {
       this.id = id;
       this.name = name;
       this.type = type;
       this.comment = comment;
     }
 
-    public Long getId() {
+    public String getId() {
       return id;
     }
 
@@ -52,13 +52,19 @@ public class Field {
   }
 
   public static class Style {
+    Integer width;
     HorizontalAlignment horizontalAlignment;
+
+    public Integer getWidth() {
+      return width;
+    }
 
     public HorizontalAlignment getHorizontalAlignment() {
       return horizontalAlignment;
     }
 
-    public Style(HorizontalAlignment horizontalAlignment) {
+    public Style(Integer width, HorizontalAlignment horizontalAlignment) {
+      this.width = width;
       this.horizontalAlignment = horizontalAlignment;
     }
   }

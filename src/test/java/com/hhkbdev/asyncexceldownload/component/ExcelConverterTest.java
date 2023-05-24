@@ -20,14 +20,14 @@ import org.junit.jupiter.api.Test;
 class ExcelConverterTest {
 
   private Field field1 = new Field(
-      new Schema(1L, "Name", "String", "이름"),
-      new Style(HorizontalAlignment.CENTER));
+      new Schema("1L", "Name", "String", "이름"),
+      new Style(null, HorizontalAlignment.CENTER));
   private Field field2 = new Field(
-      new Schema(2L, "Age", "Integer", "나이"),
-      new Style(HorizontalAlignment.RIGHT));
+      new Schema("2L", "Age", "Integer", "나이"),
+      new Style(null, HorizontalAlignment.RIGHT));
   private Field field3 = new Field(
-      new Schema(3L, "Country", "String", "국가"),
-      new Style(HorizontalAlignment.LEFT));
+      new Schema("3L", "Country", "String", "국가"),
+      new Style(null, HorizontalAlignment.LEFT));
 
   private Map data1 = Map.of("Name", "John", "Age", "20", "Country", "USA");
   private Map data2 = Map.of("Name", "Jane", "Age", "25", "Country", "Canada");
